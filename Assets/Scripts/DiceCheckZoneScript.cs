@@ -4,36 +4,65 @@ using UnityEngine;
 
 public class DiceCheckZoneScript : MonoBehaviour {
 
-	Vector3 diceVelocity;
+	Vector3 dice1Velocity;
+	Vector3 dice2Velocity;
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		diceVelocity = DiceScript.diceVelocity;
+		dice1Velocity = DiceScript.dice1Velocity;
+		dice2Velocity = DiceScript.dice2Velocity;
 	}
 
 	void OnTriggerStay(Collider col)
 	{
-		if (diceVelocity.x == 0f && diceVelocity.y == 0f && diceVelocity.z == 0f)
-		{
-			switch (col.gameObject.name) {
-			case "Side1":
-				DiceNumberTextScript.diceNumber = 6;
-				break;
-			case "Side2":
-				DiceNumberTextScript.diceNumber = 5;
-				break;
-			case "Side3":
-				DiceNumberTextScript.diceNumber = 4;
-				break;
-			case "Side4":
-				DiceNumberTextScript.diceNumber = 3;
-				break;
-			case "Side5":
-				DiceNumberTextScript.diceNumber = 2;
-				break;
-			case "Side6":
-				DiceNumberTextScript.diceNumber = 1;
-				break;
+		if (col.gameObject.transform.parent.name == "dice1") {
+			if (dice1Velocity.x == 0f && dice1Velocity.y == 0f && dice1Velocity.z == 0f)
+			{
+				switch (col.gameObject.name) {
+					case "Side1":
+						DiceNumberTextScript.diceNumber1 = 6;
+						break;
+					case "Side2":
+						DiceNumberTextScript.diceNumber1 = 5;
+						break;
+					case "Side3":
+						DiceNumberTextScript.diceNumber1 = 4;
+						break;
+					case "Side4":
+						DiceNumberTextScript.diceNumber1 = 3;
+						break;
+					case "Side5":
+						DiceNumberTextScript.diceNumber1 = 2;
+						break;
+					case "Side6":
+						DiceNumberTextScript.diceNumber1 = 1;
+						break;
+				}
+			}
+		}
+		else if (col.gameObject.transform.parent.name == "dice2") {
+			if (dice2Velocity.x == 0f && dice2Velocity.y == 0f && dice2Velocity.z == 0f)
+			{
+				switch (col.gameObject.name) {
+					case "Side1":
+						DiceNumberTextScript.diceNumber2 = 6;
+						break;
+					case "Side2":
+						DiceNumberTextScript.diceNumber2 = 5;
+						break;
+					case "Side3":
+						DiceNumberTextScript.diceNumber2 = 4;
+						break;
+					case "Side4":
+						DiceNumberTextScript.diceNumber2 = 3;
+						break;
+					case "Side5":
+						DiceNumberTextScript.diceNumber2 = 2;
+						break;
+					case "Side6":
+						DiceNumberTextScript.diceNumber2 = 1;
+						break;
+				}
 			}
 		}
 	}
