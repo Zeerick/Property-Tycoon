@@ -740,6 +740,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6513068476679060547}
+  - component: {fileID: 65722373939075090}
   - component: {fileID: 8363513410168780109}
   m_Layer: 0
   m_Name: Property
@@ -771,6 +772,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65722373939075090
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7584468244950858228}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 5, z: 20}
+  m_Center: {x: 0, y: 3, z: 0}
 --- !u!114 &8363513410168780109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,15 +797,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409319d8e2a06e24bbb03fbc8b8616d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  space: 4
-  streetName: Flot Strot
-  color: {r: 0, g: 0, b: 1, a: 0}
-  owned: 1
-  ownerNo: 3
-  price: 220
-  housePrice: 150
-  rent: 120000005a000000fa000000bc0200006b0300001a040000
-  houses: 3
+  space: 0
+  streetName: 
+  color: {r: 0, g: 0, b: 0, a: 0}
+  owned: 0
+  ownerNo: 0
+  price: 0
+  housePrice: 0
+  rent: 
+  houses: 0
 --- !u!1 &9218488705535631510
 GameObject:
   m_ObjectHideFlags: 0

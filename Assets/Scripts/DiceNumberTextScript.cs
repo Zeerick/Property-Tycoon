@@ -16,9 +16,13 @@ public class DiceNumberTextScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		text.text = diceNumber1.ToString() + " + " + diceNumber2.ToString() + " = " + (diceNumber1 + diceNumber2).ToString();
-		if (diceNumber1 == diceNumber2) {
-			text.text = text.text + "   DOUBLE!!!";
+		string testText;
+		if (diceNumber1 != 0 && diceNumber2 != 0) {
+			testText = diceNumber1.ToString() + " + " + diceNumber2.ToString() + " = " + (diceNumber1 + diceNumber2).ToString();
+			if (diceNumber1 == diceNumber2) {
+				testText = testText + " DOUBLE!!!";
+			}
+			text.text = testText;
 		}
 	}
 }
