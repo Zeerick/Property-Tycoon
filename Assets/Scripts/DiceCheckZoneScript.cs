@@ -16,7 +16,7 @@ public class DiceCheckZoneScript : MonoBehaviour {
 	void OnTriggerStay(Collider col)
 	{
 		if (dice1Velocity.x == 0f && dice1Velocity.y == 0f && dice1Velocity.z == 0f && dice2Velocity.x == 0f && dice2Velocity.y == 0f && dice2Velocity.z == 0f) {
-			if (col.gameObject.transform.parent != null && col.gameObject.transform.parent.transform.position.y < 1.5 && col.gameObject.transform.parent.name == "dice1") {
+			if (col.gameObject.transform.parent != null && col.gameObject.transform.parent.transform.position.y < 0.4 && col.gameObject.transform.parent.name == "dice1") {
 				switch (col.gameObject.name) {
 					case "Side1":
 						DiceNumberTextScript.diceNumber1 = 6;
@@ -38,7 +38,7 @@ public class DiceCheckZoneScript : MonoBehaviour {
 						break;
 				}
 			}
-			else if (col.gameObject.transform.parent != null && col.gameObject.transform.parent.transform.position.y < 1.5 && col.gameObject.transform.parent.name == "dice2") {
+			else if (col.gameObject.transform.parent != null && col.gameObject.transform.parent.transform.position.y < 0.4 && col.gameObject.transform.parent.name == "dice2") {
 				switch (col.gameObject.name) {
 					case "Side1":
 						DiceNumberTextScript.diceNumber2 = 6;

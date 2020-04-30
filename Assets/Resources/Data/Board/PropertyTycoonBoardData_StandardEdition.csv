@@ -1,0 +1,53 @@
+Standard Edition,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,If can be bought,,,When improved,,,,
+,,,,,,,,,,,,,,,,,,,,,,Cost,Rent (unimproved) ,,1 house,2 houses,3 houses,4 houses,1 hotel
+Position,Space/property,,Group,Hex,Red,Green,Blue,Action,Can be bought?,Go,Jail,Free Parking,Go To Jail,Property,Station,Utility,Tax,Amount,Take Card,Deck,,£,£,,£,£,£,£,£
+1,Go,,,,0,0,0,Collect £200,No,Yes,No,No,No,No,No,No,No,200,No,,,,,,,,,,
+2,Crapper Street,,Brown,#8B4513,0.545098039215686,0.270588235294118,0.074509803921569,,Yes,No,No,No,No,Yes,No,No,No,,No,,,60,2,,10,30,90,160,250
+3,Pot Luck,,,,0,0,0,Take card,No,No,No,No,No,No,No,No,No,,Yes,PL,,,,,,,,,
+4,Gangsters Paradise,,Brown,#8B4513,0.545098039215686,0.270588235294118,0.074509803921569,,Yes,No,No,No,No,Yes,No,No,No,,No,,,60,4,,20,60,180,320,450
+5,Income Tax,,,,0,0,0,Pay £200,No,No,No,No,No,No,No,No,Yes,200,No,,,,,,,,,,
+6,Brighton Station,,Station,#000000,0,0,0,,Yes,No,No,No,No,No,Yes,No,No,,No,,,200,25,,50,100,200,,
+7,Weeping Angel,,Blue,#87CEFA,0.529411764705882,0.807843137254902,0.980392156862745,,Yes,No,No,No,No,Yes,No,No,No,,No,,,100,6,,30,90,270,400,550
+8,Opportunity Knocks,,,,0,0,0,Take card,No,No,No,No,No,No,No,No,No,,Yes,OK,,,,,,,,,
+9,Potts Avenue,,Blue,#87CEFA,0.529411764705882,0.807843137254902,0.980392156862745,,Yes,No,No,No,No,Yes,No,No,No,,No,,,100,6,,30,90,270,400,550
+10,Nardole Drive,,Blue,#87CEFA,0.529411764705882,0.807843137254902,0.980392156862745,,Yes,No,No,No,No,Yes,No,No,No,,No,,,120,8,,40,100,300,450,600
+11,Jail/Just visiting,,,,0,0,0,,No,No,Yes,No,No,No,No,No,No,,No,,,,,,,,,,
+12,Skywalker Drive,,Purple,#FF00FF,1,0,1,,Yes,No,No,No,No,Yes,No,No,No,,No,,,140,10,,50,150,450,625,750
+13,Tesla Power Co,,Utilities,#555555,0.333333333333333,0.333333333333333,0.333333333333333,,Yes,No,No,No,No,No,No,No,Yes,,No,,,150,4,,10,,,,
+14,Wookie Hole,,Purple,#FF00FF,1,0,1,,Yes,No,No,No,No,Yes,No,No,No,,No,,,140,10,,50,150,450,625,750
+15,Rey Lane,,Purple,#FF00FF,1,0,1,,Yes,No,No,No,No,Yes,No,No,No,,No,,,160,12,,60,180,500,700,900
+16,Hove Station,,Station,#000000,0,0,0,,Yes,No,No,No,No,No,Yes,No,No,,No,,,200,25,,50,100,200,,
+17,Cooper Drive,,Orange,#FFA500,1,0.647058823529412,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,180,14,,70,200,550,750,950
+18,Pot Luck,,,,0,0,0,Take card,No,No,No,No,No,No,No,No,No,,Yes,PL,,,,,,,,,
+19,Wolowitz Street,,Orange,#FFA500,1,0.647058823529412,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,180,14,,70,200,550,750,950
+20,Penny Lane,,Orange,#FFA500,1,0.647058823529412,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,200,16,,80,220,600,800,1000
+21,Free Parking,,,,0,0,0,Collect fines,No,No,No,Yes,No,No,No,No,No,,No,,,,,,,,,,
+22,Yue Fei Square,,Red,#FF0000,1,0,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,220,18,,90,250,700,875,1050
+23,Opportunity Knocks,,,,0,0,0,Take card,No,No,No,No,No,No,No,No,No,,Yes,OK,,,,,,,,,
+24,Mulan Rouge,,Red,#FF0000,1,0,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,220,18,,90,250,700,875,1050
+25,Han Xin Gardens,,Red,#FF0000,1,0,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,240,20,,100,300,750,925,1100
+26,Falmer Station,,Station,#000000,0,0,0,,Yes,No,No,No,No,No,Yes,No,No,,No,,,200,25,,50,100,200,,
+27,Kirk Close,,Yellow,#FFFF00,1,1,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,260,22,,110,330,800,975,1150
+28,Picard Avenue,,Yellow,#FFFF00,1,1,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,260,22,,110,330,800,975,1150
+29,Edison Water,,Utilities,#555555,0.333333333333333,0.333333333333333,0.333333333333333,,Yes,No,No,No,No,No,No,No,Yes,,No,,,150,4,,10,,,,
+30,Crusher Creek,,Yellow,#FFFF00,1,1,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,280,22,,120,360,850,1025,1200
+31,Go to Jail,,Go to jail,,0,0,0,,No,No,No,No,Yes,No,No,No,No,,No,,,,,,,,,,
+32,Sirat Mews,,Green,#008000,0,0.501960784313726,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,300,26,,130,390,900,1100,1275
+33,Ghengis Crescent,,Green,#008000,0,0.501960784313726,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,300,26,,130,390,900,1100,1275
+34,Pot Luck,,,,0,0,0,Take card,No,No,No,No,No,No,No,No,No,,Yes,PL,,,,,,,,,
+35,Ibis Close,,Green,#008000,0,0.501960784313726,0,,Yes,No,No,No,No,Yes,No,No,No,,No,,,320,28,,150,450,1000,1200,1400
+36,Lewes Station,,Station,#000000,0,0,0,,Yes,No,No,No,No,No,Yes,No,No,,No,,,200,25,,50,100,200,,
+37,Opportunity Knocks,,Take card,,0,0,0,,No,No,No,No,No,No,No,No,No,,Yes,OK,,,,,,,,,
+38,Hawking Way,,Deep blue,#00008B,0,0,0.545098039215686,,Yes,No,No,No,No,Yes,No,No,No,,No,,,350,35,,175,500,1100,1300,1500
+39,Super Tax,,,,0,0,0,Pay £100,No,No,No,No,No,No,No,No,Yes,100,No,,,,,,,,,,
+40,Turing Heights,,Deep blue,#00008B,0,0,0.545098039215686,,Yes,No,No,No,No,Yes,No,No,No,,No,,,400,50,,200,600,1400,1700,2000
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Notes,,,,,,,,,,,,,,,,,,,,,,House and hotel costs,,,,,,,
+"If one utility is owned by a player, rent is 4 times value shown on dice.",,,,,,,,,,,,,,,,,,,,,,Set,,House,Hotel,,,,
+"If both utilities are owned by a player, rent is 10 time value shown on dice.",,,,,,,,,,,,,,,,,,,,,,"Brown, Blue",,£50,£50 + 4 houses,,,,
+"If player owns 1 station, rent is £25",,,,,,,,,,,,,,,,,,,,,,"Purple, Orange",,£100,£100 + 4 houses,,,,
+"If player owns 2 stations, rent is £50",,,,,,,,,,,,,,,,,,,,,,"Red, Yellow",,£150,£150 + 4 houses,,,,
+"If player owns 3 stations, rent is £100",,,,,,,,,,,,,,,,,,,,,,"Green, Deep blue",,£200,£200 + 4 houses,,,,
+"If player owns 4 stations, rent is £200",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Income Tax and Super Tax fines are paid to the bank,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

@@ -9,7 +9,7 @@ public class DiceScript : MonoBehaviour {
 	public static Vector3 dice1Velocity;
 	public static Vector3 dice2Velocity;
 
-	public int initX;
+	public float initX;
 
 	// Use this for initialization
 	void Start () {
@@ -38,10 +38,10 @@ public class DiceScript : MonoBehaviour {
 				float dirX2 = Random.Range (-500, 500);
 				float dirY2 = Random.Range (-500, 500);
 				float dirZ2 = Random.Range (-500, 500);
-				transform.position = new Vector3 (initX, 2, 0);
+				transform.position = new Vector3 (initX, 0.6f, 0f);
 				transform.rotation = Quaternion.identity;
-				rb1.AddForce (transform.up * 250);
-				rb2.AddForce (transform.up * 250);
+				rb1.AddForce (transform.up * 150);
+				rb2.AddForce (transform.up * 150);
 				rb1.AddTorque (dirX1, dirY1, dirZ1);
 				rb2.AddTorque (dirX2, dirY2, dirZ2);
 			}
