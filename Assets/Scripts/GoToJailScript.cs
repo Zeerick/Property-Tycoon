@@ -6,7 +6,7 @@ public class GoToJailScript : MonoBehaviour
 {
     public int space;
     public string spaceName;
-    public int tagetSpace;
+    public int targetSpace;
 
     // Start is called before the first frame update
     void Start()

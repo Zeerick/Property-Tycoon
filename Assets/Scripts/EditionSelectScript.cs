@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System.IO;
 
 public class EditionSelectScript : MonoBehaviour
@@ -9,6 +10,11 @@ public class EditionSelectScript : MonoBehaviour
     string[] editionNames;
     string[] csvStrings;
     int currentEditionNo;
+
+    [System.Serializable]
+    public class SubmitEvent : UnityEvent<string> {}
+
+    public SubmitEvent StartGame;
 
     // Start is called before the first frame update
     void Start()
@@ -48,5 +54,10 @@ public class EditionSelectScript : MonoBehaviour
         if (currentEditionNo > 0) {
             currentEditionNo -= 1;
         }
+    }
+
+    public void Submit()
+    {
+        StartGame.Invoke(csvStrings[currentEditionNo]);
     }
 }
