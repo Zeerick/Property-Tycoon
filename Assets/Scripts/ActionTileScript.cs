@@ -7,6 +7,9 @@ public class ActionTileScript : MonoBehaviour
     public int space;
     public string spaceName;
     public string description;
+    public string type;
+    public int amount;
+    public string deck;
 
     // Start is called before the first frame update
     void Start()

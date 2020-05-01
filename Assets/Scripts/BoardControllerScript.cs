@@ -14,6 +14,8 @@ public class BoardControllerScript : MonoBehaviour
     public GameObject Station;
     public GameObject Utility;
 
+    public GameObject[] board = new GameObject[40];
+
     string[] name = new string[40];
     string[] group = new string[40];
     Color[] color = new Color[40];
@@ -62,68 +64,93 @@ public class BoardControllerScript : MonoBehaviour
         {
             switch (type[space]) {
                 case "Free Parking":
-                    CreateFreeParking(space, name[space]);
+                    board[space] = CreateFreeParking(space, name[space]);
                     break;
                 case "Go":
-                    CreateGo(space, name[space], amount[space]);
+                    board[space] = CreateGo(space, name[space], amount[space]);
                     break;
                 case "Go To Jail":
-                    CreateGoToJail(space, name[space]);
+                    board[space] = CreateGoToJail(space, name[space]);
                     break;
                 case "Jail":
-                    CreateJail(space, name[space]);
+                    board[space] = CreateJail(space, name[space]);
                     break;
                 case "Property":
-                    CreateProperty(space, name[space], color[space], price[space], housePrice[space], rent[space]);
+                    board[space] = CreateProperty(space, name[space], color[space], price[space], housePrice[space], rent[space]);
                     break;
                 case "Station":
+                    board[space] = CreateStation(space, name[space], color[space], price[space], rent[space]);
                     break;
                 case "Take Card":
+                    board[space] = CreateTakeCard(space, name[space], deck[space]);
                     break;
                 case "Tax":
+                    board[space] = CreateTax(space, name[space], amount[space]);
                     break;
                 case "Utility":
+                    board[space] = CreateUtility(space, name[space], color[space], price[space], rent[space]);
                     break;
             }
         }
     }
 
-    void CreateAction()
+    GameObject CreateTakeCard(int space, string spaceName, string spaceDeck)
     {
-
+        return CreateAction(space, spaceName, "Take a\n" + spaceDeck + "\ncard from the deck", "Take Card", 0, spaceDeck);
     }
 
-    void CreateFreeParking(int space, string spaceName)
+    GameObject CreateTax(int space, string spaceName, int spaceAmount)
+    {
+        return CreateAction(space, spaceName, "Pay £" + spaceAmount.ToString() + "\nto\n" + name[Array.IndexOf(type, "Free Parking")], "Tax", spaceAmount, "");
+    }
+
+    GameObject CreateAction(int space, string spaceName, string description, string spaceType, int spaceAmount, string spaceDeck)
+    {
+        GameObject instance = Instantiate(Action, SpacePosition(space), SpaceRotation(space), gameObject.transform);
+        instance.GetComponent<ActionTileScript>().space = space;
+        instance.GetComponent<ActionTileScript>().spaceName = spaceName;
+        instance.GetComponent<ActionTileScript>().description = description;
+        instance.GetComponent<ActionTileScript>().type = spaceType;
+        instance.GetComponent<ActionTileScript>().amount = spaceAmount;
+        instance.GetComponent<ActionTileScript>().deck = spaceDeck;
+        return instance;
+    }
+
+    GameObject CreateFreeParking(int space, string spaceName)
     {
         GameObject instance = Instantiate(FreeParking, SpacePosition(space), SpaceRotation(space), gameObject.transform);
         instance.GetComponent<FreeParkingScript>().space = space;
         instance.GetComponent<FreeParkingScript>().spaceName = spaceName;
+        return instance;
     }
 
-    void CreateGo(int space, string spaceName, int salary)
+    GameObject CreateGo(int space, string spaceName, int salary)
     {
         GameObject instance = Instantiate(Go, SpacePosition(space), SpaceRotation(space), gameObject.transform);
         instance.GetComponent<GoScript>().space = space;
         instance.GetComponent<GoScript>().spaceName = spaceName;
         instance.GetComponent<GoScript>().salary = salary;
+        return instance;
     }
 
-    void CreateGoToJail(int space, string spaceName)
+    GameObject CreateGoToJail(int space, string spaceName)
     {
         GameObject instance = Instantiate(GoToJail, SpacePosition(space), SpaceRotation(space), gameObject.transform);
         instance.GetComponent<GoToJailScript>().space = space;
         instance.GetComponent<GoToJailScript>().spaceName = spaceName;
         instance.GetComponent<GoToJailScript>().targetSpace = Array.IndexOf(type, "Jail");
+        return instance;
     }
 
-    void CreateJail(int space, string spaceName)
+    GameObject CreateJail(int space, string spaceName)
     {
         GameObject instance = Instantiate(Jail, SpacePosition(space), SpaceRotation(space), gameObject.transform);
         instance.GetComponent<JailScript>().space = space;
         instance.GetComponent<JailScript>().spaceName = spaceName;
+        return instance;
     }
 
-    void CreateProperty(int space, string spaceName, Color spaceColor, int spacePrice, int spaceHousePrice, int[] spaceRent)
+    GameObject CreateProperty(int space, string spaceName, Color spaceColor, int spacePrice, int spaceHousePrice, int[] spaceRent)
     {
         GameObject instance = Instantiate(Property, SpacePosition(space), SpaceRotation(space), gameObject.transform);
         instance.GetComponent<PropertyScript>().space = space;
@@ -132,19 +159,43 @@ public class BoardControllerScript : MonoBehaviour
         instance.GetComponent<PropertyScript>().price = spacePrice;
         instance.GetComponent<PropertyScript>().housePrice = spaceHousePrice;
         instance.GetComponent<PropertyScript>().rent = spaceRent;
+        return instance;
     }
 
-    void CreateStation()
+    GameObject CreateStation(int space, string spaceName, Color spaceColor, int spacePrice, int[] spaceRent)
     {
-
+        GameObject instance = Instantiate(Station, SpacePosition(space), SpaceRotation(space), gameObject.transform);
+        instance.GetComponent<StationScript>().space = space;
+        instance.GetComponent<StationScript>().stationName = spaceName;
+        instance.GetComponent<StationScript>().color = spaceColor;
+        instance.GetComponent<StationScript>().price = spacePrice;
+        instance.GetComponent<StationScript>().rent = new int[4];
+        instance.GetComponent<StationScript>().rent[0] = spaceRent[0];
+        instance.GetComponent<StationScript>().rent[1] = spaceRent[1];
+        instance.GetComponent<StationScript>().rent[2] = spaceRent[2];
+        instance.GetComponent<StationScript>().rent[3] = spaceRent[3];
+        return instance;
     }
 
-    void CreateUtility()
+    GameObject CreateUtility(int space, string spaceName, Color spaceColor, int spacePrice, int[] spaceRent)
     {
-
+        GameObject instance = Instantiate(Utility, SpacePosition(space), SpaceRotation(space), gameObject.transform);
+        instance.GetComponent<UtilityScript>().space = space;
+        instance.GetComponent<UtilityScript>().spaceName = spaceName;
+        instance.GetComponent<UtilityScript>().color = spaceColor;
+        instance.GetComponent<UtilityScript>().price = spacePrice;
+        instance.GetComponent<UtilityScript>().multiplier = new int[2];
+        instance.GetComponent<UtilityScript>().multiplier[0] = spaceRent[0];
+        instance.GetComponent<UtilityScript>().multiplier[1] = spaceRent[1];
+        return instance;
     }
 
-    Vector3 SpacePosition(int space)
+    public static Vector3 SpacePosition(int space)
+    {
+        return SpacePosition(space, new Vector3(0,0,0));
+    }
+
+    public static Vector3 SpacePosition(int space, Vector3 modifier)
     {
         float disp = (space % 10f) + (0.5f * Convert.ToInt32(space % 10 > 0));
         Vector3 corner;
@@ -171,10 +222,10 @@ public class BoardControllerScript : MonoBehaviour
                 rowDisplacement = new Vector3(-disp,0,0);
                 break;
         }
-        return gameObject.transform.position + corner + rowDisplacement;
+        return GameObject.Find("Board Controller").transform.position + corner + rowDisplacement + modifier;
     }
 
-    Quaternion SpaceRotation(int space)
+    public static Quaternion SpaceRotation(int space)
     {
         return Quaternion.Euler(0,Mathf.Floor(space / 10) * 90,0);
     }

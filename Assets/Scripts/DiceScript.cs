@@ -27,24 +27,23 @@ public class DiceScript : MonoBehaviour {
 	void Update () {
 		dice1Velocity = rb1.velocity;
 		dice2Velocity = rb2.velocity;
+	}
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			if (dice1Velocity.x == 0f && dice1Velocity.y == 0f && dice1Velocity.z == 0f && dice2Velocity.x == 0f && dice2Velocity.y == 0f && dice2Velocity.z == 0f) {
-				DiceNumberTextScript.diceNumber1 = 0;
-				DiceNumberTextScript.diceNumber2 = 0;
-				float dirX1 = Random.Range (-500, 500);
-				float dirY1 = Random.Range (-500, 500);
-				float dirZ1 = Random.Range (-500, 500);
-				float dirX2 = Random.Range (-500, 500);
-				float dirY2 = Random.Range (-500, 500);
-				float dirZ2 = Random.Range (-500, 500);
-				transform.position = new Vector3 (initX, 0.6f, 0f);
-				transform.rotation = Quaternion.identity;
-				rb1.AddForce (transform.up * 150);
-				rb2.AddForce (transform.up * 150);
-				rb1.AddTorque (dirX1, dirY1, dirZ1);
-				rb2.AddTorque (dirX2, dirY2, dirZ2);
-			}
-		}
+	public void Roll()
+	{
+		DiceNumberTextScript.diceNumber1 = 0;
+		DiceNumberTextScript.diceNumber2 = 0;
+		float dirX1 = Random.Range (-500, 500);
+		float dirY1 = Random.Range (-500, 500);
+		float dirZ1 = Random.Range (-500, 500);
+		float dirX2 = Random.Range (-500, 500);
+		float dirY2 = Random.Range (-500, 500);
+		float dirZ2 = Random.Range (-500, 500);
+		transform.position = new Vector3 (initX, 0.6f, 0f);
+		transform.rotation = Quaternion.identity;
+		rb1.AddForce (transform.up * 150);
+		rb2.AddForce (transform.up * 150);
+		rb1.AddTorque (dirX1, dirY1, dirZ1);
+		rb2.AddTorque (dirX2, dirY2, dirZ2);
 	}
 }

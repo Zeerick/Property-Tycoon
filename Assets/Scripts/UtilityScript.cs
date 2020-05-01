@@ -17,7 +17,7 @@ public class UtilityScript : MonoBehaviour
     {
         gameObject.transform.Find("Name").gameObject.GetComponent<TextMesh>().text = spaceName;
         gameObject.transform.Find("Colour").gameObject.GetComponent<Renderer>().material.color = color;
-        gameObject.transform.Find("Colour").gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", color);
+        //gameObject.transform.Find("Colour").gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", color);
     }
 
     // Update is called once per frame

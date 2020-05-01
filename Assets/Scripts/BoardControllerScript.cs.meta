@@ -3,7 +3,21 @@ guid: 1ecec4075284a77428797b673a278331
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Action: {fileID: 9124092644562403864, guid: ae0aac4ee3ffbe74aa397df9ac6b0557,
+      type: 3}
+  - FreeParking: {fileID: 6759096220573191131, guid: 9db6c3445fc97cf42b741d691dcb4001,
+      type: 3}
+  - Go: {fileID: 4531730742774605779, guid: a52529bb61d674146ad33558140d356b, type: 3}
+  - GoToJail: {fileID: 2355193695007412590, guid: 5f4dcc0392951eb449e0818e08b48afe,
+      type: 3}
+  - Jail: {fileID: 8505969692642929538, guid: b10bad146dc123543bb9881d39c539bf, type: 3}
+  - Property: {fileID: 7584468244950858228, guid: 59a6800d7dc13da44962d69d00dcbfbb,
+      type: 3}
+  - Station: {fileID: 8685255327797919097, guid: 92f909df0768c8f4e8091441971dcbd5,
+      type: 3}
+  - Utility: {fileID: 6508717388724180296, guid: c49ca956bf73c5d4cade86c4e5d49873,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
