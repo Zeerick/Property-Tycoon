@@ -19,7 +19,6 @@ public class PropertyScript : MonoBehaviour
     {
         gameObject.transform.Find("Name").gameObject.GetComponent<TextMesh>().text = streetName;
         gameObject.transform.Find("Colour").gameObject.GetComponent<Renderer>().material.color = color;
-        //gameObject.transform.Find("Colour").gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", color);
     }
 
     // Update is called once per frame
@@ -36,12 +35,20 @@ public class PropertyScript : MonoBehaviour
             "\n\nPrice: £" + price.ToString() +
             "\n\nHouse & Hotels: £" + housePrice.ToString();
         if(owned) {
-            description = description + "\n\nOwned by:\nPlayer " + ownerNo.ToString();
+            description = description + "\n\nOwned by:\n" + gameObject.transform.parent.GetComponent<BoardControllerScript>().PlayerController.gameObject.GetComponent<PlayerControllerScript>().players[ownerNo].GetComponent<PlayerScript>().playerName;
         } else {
             description = description + "\n\nAvailable";
         }
 
         gameObject.transform.Find("Information").gameObject.GetComponent<TextMesh>().text = description;
+        if (owned)
+        {
+            gameObject.transform.Find("Owner").gameObject.SetActive(true);
+            gameObject.transform.Find("Owner").gameObject.GetComponent<Renderer>().material.color = gameObject.transform.parent.GetComponent<BoardControllerScript>().PlayerController.gameObject.GetComponent<PlayerControllerScript>().players[ownerNo].GetComponent<PlayerScript>().color;
+        } else
+        {
+            gameObject.transform.Find("Owner").gameObject.SetActive(false);
+        }
 
         if(houses == 5) {
             gameObject.transform.Find("hotel").gameObject.SetActive(true);

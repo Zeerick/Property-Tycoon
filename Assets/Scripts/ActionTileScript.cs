@@ -17,10 +17,4 @@ public class ActionTileScript : MonoBehaviour
         gameObject.transform.Find("Name").gameObject.GetComponent<TextMesh>().text = spaceName;
         gameObject.transform.Find("Information").gameObject.GetComponent<TextMesh>().text = description;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

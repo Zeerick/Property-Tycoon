@@ -10,9 +10,12 @@ public class DiceCheckZoneScript : MonoBehaviour {
 	int diceNumber1;
 	int diceNumber2;
 	bool stopped;
+	float timer;
 
 	[System.Serializable]
     public class Rolled : UnityEvent<int,int> {}
+
+	public UnityEvent reRoll = new UnityEvent();
 
     public Rolled DiceRolled;
 
@@ -25,6 +28,12 @@ public class DiceCheckZoneScript : MonoBehaviour {
 	{
 		dice1Velocity = DiceScript.dice1Velocity;
 		dice2Velocity = DiceScript.dice2Velocity;
+		timer += Time.deltaTime;
+		if (!stopped && timer > 15f)
+		{
+			reset();
+			reRoll.Invoke();
+		}
 	}
 
 	void OnTriggerStay(Collider col)
@@ -90,5 +99,6 @@ public class DiceCheckZoneScript : MonoBehaviour {
 		diceNumber1 = 0;
 		diceNumber2 = 0;
 		stopped = false;
+		timer = 0.0f;
 	}
 }

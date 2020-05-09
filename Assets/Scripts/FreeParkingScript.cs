@@ -19,4 +19,11 @@ public class FreeParkingScript : MonoBehaviour
     {
         gameObject.transform.Find("Pot").gameObject.GetComponent<TextMesh>().text = "£" + pot.ToString();
     }
+
+    public int TakePot()
+    {
+        int amount = pot;
+        pot = 0;
+        return amount;
+    }
 }

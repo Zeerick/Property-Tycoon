@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BoardControllerScript : MonoBehaviour
 {
+    public GameObject PlayerController;
+
     public GameObject Action;
     public GameObject FreeParking;
     public GameObject Go;
@@ -16,7 +18,7 @@ public class BoardControllerScript : MonoBehaviour
 
     public GameObject[] board = new GameObject[40];
 
-    string[] name = new string[40];
+    string[] names = new string[40];
     string[] group = new string[40];
     Color[] color = new Color[40];
     string[] type = new string[40];
@@ -38,7 +40,7 @@ public class BoardControllerScript : MonoBehaviour
         for (int row = 0; row < 40; row++)
         {
             string[] line = cells[row + 4];
-            name[row] = line[1];
+            names[row] = line[1];
             group[row] = line[3];
             color[row] = new Color(float.Parse(line[5]), float.Parse(line[6]), float.Parse(line[7]));
             type[row] = line[9];
@@ -64,31 +66,31 @@ public class BoardControllerScript : MonoBehaviour
         {
             switch (type[space]) {
                 case "Free Parking":
-                    board[space] = CreateFreeParking(space, name[space]);
+                    board[space] = CreateFreeParking(space, names[space]);
                     break;
                 case "Go":
-                    board[space] = CreateGo(space, name[space], amount[space]);
+                    board[space] = CreateGo(space, names[space], amount[space]);
                     break;
                 case "Go To Jail":
-                    board[space] = CreateGoToJail(space, name[space]);
+                    board[space] = CreateGoToJail(space, names[space]);
                     break;
                 case "Jail":
-                    board[space] = CreateJail(space, name[space]);
+                    board[space] = CreateJail(space, names[space]);
                     break;
                 case "Property":
-                    board[space] = CreateProperty(space, name[space], color[space], price[space], housePrice[space], rent[space]);
+                    board[space] = CreateProperty(space, names[space], color[space], price[space], housePrice[space], rent[space]);
                     break;
                 case "Station":
-                    board[space] = CreateStation(space, name[space], color[space], price[space], rent[space]);
+                    board[space] = CreateStation(space, names[space], color[space], price[space], rent[space]);
                     break;
                 case "Take Card":
-                    board[space] = CreateTakeCard(space, name[space], deck[space]);
+                    board[space] = CreateTakeCard(space, names[space], deck[space]);
                     break;
                 case "Tax":
-                    board[space] = CreateTax(space, name[space], amount[space]);
+                    board[space] = CreateTax(space, names[space], amount[space]);
                     break;
                 case "Utility":
-                    board[space] = CreateUtility(space, name[space], color[space], price[space], rent[space]);
+                    board[space] = CreateUtility(space, names[space], color[space], price[space], rent[space]);
                     break;
             }
         }
@@ -101,7 +103,7 @@ public class BoardControllerScript : MonoBehaviour
 
     GameObject CreateTax(int space, string spaceName, int spaceAmount)
     {
-        return CreateAction(space, spaceName, "Pay £" + spaceAmount.ToString() + "\nto\n" + name[Array.IndexOf(type, "Free Parking")], "Tax", spaceAmount, "");
+        return CreateAction(space, spaceName, "Pay £" + spaceAmount.ToString() + "\nto\n" + names[Array.IndexOf(type, "Free Parking")], "Tax", spaceAmount, "");
     }
 
     GameObject CreateAction(int space, string spaceName, string description, string spaceType, int spaceAmount, string spaceDeck)
@@ -190,9 +192,43 @@ public class BoardControllerScript : MonoBehaviour
         return instance;
     }
 
+    public int GetTypeLocation(string t)
+    {
+        return Array.IndexOf(type, t);
+    }
+
+    public void AddToFPPot(int amount)
+    {
+        board[GetTypeLocation("Free Parking")].gameObject.GetComponent<FreeParkingScript>().pot += amount;
+    }
+
     public static Vector3 SpacePosition(int space)
     {
         return SpacePosition(space, new Vector3(0,0,0));
+    }
+
+    public static Vector3 SpacePosition(int space, int playersNum, int i, string jailStatus)
+    {
+        switch (jailStatus)
+        {
+            case "In Jail":
+                return SpacePosition(space, playersNum, i, new Vector3(-0.25f,0f,0.25f));
+            case "Just Visiting":
+                return SpacePosition(space, playersNum, i, new Vector3(0.25f,0f,-0.25f));
+            default:
+                return SpacePosition(space, playersNum, i, new Vector3(0f,0f,0f));
+        }
+    }
+
+    public static Vector3 SpacePosition(int space, int playersNum, int i, Vector3 modifier)
+    {
+        if (playersNum > 0)
+        {
+            return SpacePosition(space, (Quaternion.Euler(0,(360 / playersNum) * i,0) * new Vector3(0.25f,0.25f,0f)) + (SpaceRotation(space) * modifier));
+        } else
+        {
+            return SpacePosition(space, new Vector3(0f,0.25f,0f) + (SpaceRotation(space) * modifier));
+        }
     }
 
     public static Vector3 SpacePosition(int space, Vector3 modifier)

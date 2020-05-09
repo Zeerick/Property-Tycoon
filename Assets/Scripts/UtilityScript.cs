@@ -35,5 +35,13 @@ public class UtilityScript : MonoBehaviour
         }
 
         gameObject.transform.Find("Information").gameObject.GetComponent<TextMesh>().text = description;
+        if (owned)
+        {
+            gameObject.transform.Find("Owner").gameObject.SetActive(true);
+            gameObject.transform.Find("Owner").gameObject.GetComponent<Renderer>().material.color = gameObject.transform.parent.GetComponent<BoardControllerScript>().PlayerController.gameObject.GetComponent<PlayerControllerScript>().players[ownerNo].GetComponent<PlayerScript>().color;
+        } else
+        {
+            gameObject.transform.Find("Owner").gameObject.SetActive(false);
+        }
     }
 }

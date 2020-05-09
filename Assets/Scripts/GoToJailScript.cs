@@ -13,10 +13,4 @@ public class GoToJailScript : MonoBehaviour
     {
         gameObject.transform.Find("Name").gameObject.GetComponent<TextMesh>().text = spaceName;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
