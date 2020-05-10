@@ -34,8 +34,8 @@ public class CameraControllerScript : MonoBehaviour
                 sideCam.SetActive(!sideCam.activeSelf);
             }
             boardEdge = (int)Mathf.Floor(playerController.GetComponent<PlayerControllerScript>().players[playerController.GetComponent<PlayerControllerScript>().currentPlayer].gameObject.GetComponent<PlayerScript>().currentSpace / 10);
-            sideCam.transform.position = Vector3.MoveTowards(sideCam.transform.position, Quaternion.Euler(0, 90 * boardEdge, 0) * sidePos, 0.75f);
-            sideCam.transform.rotation = Quaternion.RotateTowards(sideCam.transform.rotation, Quaternion.Euler(sideRot.eulerAngles.x, 90 * boardEdge, sideRot.eulerAngles.z), 3f);
+            sideCam.transform.position = Vector3.MoveTowards(sideCam.transform.position, Quaternion.Euler(0, 90 * boardEdge, 0) * sidePos, Mathf.Max(Vector3.Distance(sideCam.transform.position, Quaternion.Euler(0, 90 * boardEdge, 0) * sidePos) / 15, 0.1f));
+            sideCam.transform.rotation = Quaternion.RotateTowards(sideCam.transform.rotation, Quaternion.Euler(sideRot.eulerAngles.x, 90 * boardEdge, sideRot.eulerAngles.z), Mathf.Max(Mathf.Abs(((90 * boardEdge) - sideCam.transform.rotation.eulerAngles.y) / 15), 0.5f));
         }
     }
 

@@ -88,4 +88,9 @@ public class PropertyScript : MonoBehaviour
             gameObject.transform.Find("house4").gameObject.SetActive(false);
         }
     }
+
+    public void Acquire(GameObject player)
+    {
+        player.gameObject.GetComponent<PlayerScript>().Pay(price);
+    }
 }

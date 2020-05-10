@@ -196,7 +196,13 @@ public class PlayerScript : MonoBehaviour
         money += amount;
     }
 
-    public void Pay(int amount)
+    public bool Pay(int amount)
+    {
+        money -= amount;
+        return true;
+    }
+
+    public void Expense(int amount)
     {
         money -= amount;
     }
