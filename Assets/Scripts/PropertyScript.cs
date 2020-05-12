@@ -93,6 +93,17 @@ public class PropertyScript : MonoBehaviour
 
     public bool IsSetComplete()
     {
-
+        bool complete = true;
+        foreach (GameObject space in gameObject.transform.parent.gameObject.GetComponent<BoardControllerScript>().board)
+        {
+            if (space.gameObject.GetComponent<PropertyScript>() != null)
+            {
+                if (space.gameObject.GetComponent<PropertyScript>().group == group && (space.gameObject.GetComponent<PropertyScript>().ownerNo != ownerNo || !space.gameObject.GetComponent<PropertyScript>().owned))
+                {
+                    complete = false;
+                }
+            }
+        }
+        return complete;
     }
 }

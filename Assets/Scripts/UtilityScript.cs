@@ -18,7 +18,6 @@ public class UtilityScript : MonoBehaviour
     {
         gameObject.transform.Find("Name").gameObject.GetComponent<TextMesh>().text = spaceName;
         gameObject.transform.Find("Colour").gameObject.GetComponent<Renderer>().material.color = color;
-        //gameObject.transform.Find("Colour").gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", color);
     }
 
     // Update is called once per frame
@@ -44,5 +43,21 @@ public class UtilityScript : MonoBehaviour
         {
             gameObject.transform.Find("Owner").gameObject.SetActive(false);
         }
+    }
+
+    public int UtilitiesOwned()
+    {
+        int utilities = 0;
+        foreach (GameObject space in gameObject.transform.parent.gameObject.GetComponent<BoardControllerScript>().board)
+        {
+            if (space.gameObject.GetComponent<UtilityScript>() != null)
+            {
+                if (space.gameObject.GetComponent<UtilityScript>().ownerNo == ownerNo && space.gameObject.GetComponent<UtilityScript>().owned)
+                {
+                    utilities += 1;
+                }
+            }
+        }
+        return utilities;
     }
 }

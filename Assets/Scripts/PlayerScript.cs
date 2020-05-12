@@ -162,8 +162,16 @@ public class PlayerScript : MonoBehaviour
             {
                 if (!script.mortgaged && script.ownerNo != playerNo)
                 {
+                    int cost = script.rent[script.houses];
+                    if (script.houses == 0 && script.IsSetComplete())
+                    {
+                        cost = cost * 2;
+                    }
                     gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.SetActive(true);
-                    gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.GetComponent<PayRentScript>().Setup(script.ownerNo, script.rent[script.houses]);
+                    gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.GetComponent<PayRentScript>().Setup(script.ownerNo, cost);
+                } else
+                {
+                    MoveDone();
                 }
             } else
             {
@@ -175,19 +183,51 @@ public class PlayerScript : MonoBehaviour
 
     void Station(GameObject tile)
     {
-        currentSpace = tile.gameObject.GetComponent<StationScript>().space;
-        if (currentSpace == targetSpace) //Landed on a Station
+        StationScript script = tile.gameObject.GetComponent<StationScript>() as StationScript;
+        currentSpace = script.space;
+        if (currentSpace == targetSpace)
         {
-            MoveDone();
+            if (script.owned)
+            {
+                if (!script.mortgaged && script.ownerNo != playerNo)
+                {
+                    int cost = script.rent[script.StationsOwned() - 1];
+                    gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.SetActive(true);
+                    gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.GetComponent<PayRentScript>().Setup(script.ownerNo, cost);
+                } else
+                {
+                    MoveDone();
+                }
+            } else
+            {
+                gameObject.transform.Find("Player UI").gameObject.transform.Find("Property Available").gameObject.SetActive(true);
+                gameObject.transform.Find("Player UI").gameObject.transform.Find("Property Available").gameObject.transform.Find("Buy").gameObject.GetComponent<BuyScript>().Setup(tile);
+            }
         }
     }
 
     void Utility(GameObject tile)
     {
-        currentSpace = tile.gameObject.GetComponent<UtilityScript>().space;
-        if (currentSpace == targetSpace) //Landed on a Utility
+        UtilityScript script = tile.gameObject.GetComponent<UtilityScript>() as UtilityScript;
+        currentSpace = script.space;
+        if (currentSpace == targetSpace)
         {
-            MoveDone();
+            if (script.owned)
+            {
+                if (!script.mortgaged && script.ownerNo != playerNo)
+                {
+                    int cost = script.multiplier[script.UtilitiesOwned() - 1] * (gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().dice1 + gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().dice2);
+                    gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.SetActive(true);
+                    gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.GetComponent<PayRentScript>().Setup(script.ownerNo, cost);
+                } else
+                {
+                    MoveDone();
+                }
+            } else
+            {
+                gameObject.transform.Find("Player UI").gameObject.transform.Find("Property Available").gameObject.SetActive(true);
+                gameObject.transform.Find("Player UI").gameObject.transform.Find("Property Available").gameObject.transform.Find("Buy").gameObject.GetComponent<BuyScript>().Setup(tile);
+            }
         }
     }
 

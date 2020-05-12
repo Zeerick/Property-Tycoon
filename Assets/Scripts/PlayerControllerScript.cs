@@ -11,6 +11,8 @@ public class PlayerControllerScript : MonoBehaviour
     public GameObject[] players;
     public Color[] colors = new Color[6];
     public int currentPlayer = 0;
+    public int dice1;
+    public int dice2;
     int doubles;
     bool doubleRolled;
 
@@ -41,8 +43,10 @@ public class PlayerControllerScript : MonoBehaviour
         }
     }
 
-    public void Rolled(int dice1, int dice2)
+    public void Rolled(int d1, int d2)
     {
+        dice1 = d1;
+        dice2 = d2;
         if (dice1 == dice2)
         {
             doubles += 1;

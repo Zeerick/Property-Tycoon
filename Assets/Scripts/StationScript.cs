@@ -18,7 +18,6 @@ public class StationScript : MonoBehaviour
     {
         gameObject.transform.Find("Name").gameObject.GetComponent<TextMesh>().text = stationName;
         gameObject.transform.Find("Colour").gameObject.GetComponent<Renderer>().material.color = color;
-        //gameObject.transform.Find("Colour").gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", color);
     }
 
     // Update is called once per frame
@@ -46,5 +45,21 @@ public class StationScript : MonoBehaviour
         {
             gameObject.transform.Find("Owner").gameObject.SetActive(false);
         }
+    }
+
+    public int StationsOwned()
+    {
+        int stations = 0;
+        foreach (GameObject space in gameObject.transform.parent.gameObject.GetComponent<BoardControllerScript>().board)
+        {
+            if (space.gameObject.GetComponent<StationScript>() != null)
+            {
+                if (space.gameObject.GetComponent<StationScript>().ownerNo == ownerNo && space.gameObject.GetComponent<StationScript>().owned)
+                {
+                    stations += 1;
+                }
+            }
+        }
+        return stations;
     }
 }
