@@ -69,7 +69,9 @@ public class PlayerControllerScript : MonoBehaviour
 
     public void EndTurn()
     {
+        players[currentPlayer].gameObject.transform.Find("Player UI").gameObject.SetActive(false);
         currentPlayer = (currentPlayer + 1) % players.Length;
+        players[currentPlayer].gameObject.transform.Find("Player UI").gameObject.SetActive(true);
         doubles = 0;
         doubleRolled = false;
         reRoll.Invoke();

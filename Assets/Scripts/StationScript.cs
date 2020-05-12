@@ -8,6 +8,7 @@ public class StationScript : MonoBehaviour
     public string stationName;
     public Color color;
     public bool owned;
+    public bool mortgaged = false;
     public int ownerNo;
     public int price;
     public int[] rent;

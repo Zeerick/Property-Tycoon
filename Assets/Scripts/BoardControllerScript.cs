@@ -78,7 +78,7 @@ public class BoardControllerScript : MonoBehaviour
                     board[space] = CreateJail(space, names[space]);
                     break;
                 case "Property":
-                    board[space] = CreateProperty(space, names[space], color[space], price[space], housePrice[space], rent[space]);
+                    board[space] = CreateProperty(space, names[space], group[space], color[space], price[space], housePrice[space], rent[space]);
                     break;
                 case "Station":
                     board[space] = CreateStation(space, names[space], color[space], price[space], rent[space]);
@@ -152,11 +152,12 @@ public class BoardControllerScript : MonoBehaviour
         return instance;
     }
 
-    GameObject CreateProperty(int space, string spaceName, Color spaceColor, int spacePrice, int spaceHousePrice, int[] spaceRent)
+    GameObject CreateProperty(int space, string spaceName, string groupName, Color spaceColor, int spacePrice, int spaceHousePrice, int[] spaceRent)
     {
         GameObject instance = Instantiate(Property, SpacePosition(space), SpaceRotation(space), gameObject.transform);
         instance.GetComponent<PropertyScript>().space = space;
         instance.GetComponent<PropertyScript>().streetName = spaceName;
+        instance.GetComponent<PropertyScript>().group = groupName;
         instance.GetComponent<PropertyScript>().color = spaceColor;
         instance.GetComponent<PropertyScript>().price = spacePrice;
         instance.GetComponent<PropertyScript>().housePrice = spaceHousePrice;

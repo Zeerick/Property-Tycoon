@@ -22,6 +22,15 @@ public class PlayerScript : MonoBehaviour
         money = 1500;
         turnsLeftInJail = 0;
         boardLaps = -1;
+        if (playerNo == 0)
+        {
+            gameObject.transform.Find("Player UI").gameObject.SetActive(true);
+        } else
+        {
+            gameObject.transform.Find("Player UI").gameObject.SetActive(false);
+        }
+        gameObject.transform.Find("Player UI").gameObject.transform.Find("Property Available").gameObject.SetActive(false);
+        gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.SetActive(false);
     }
 
     void FixedUpdate()
@@ -145,10 +154,22 @@ public class PlayerScript : MonoBehaviour
 
     void Property(GameObject tile)
     {
-        currentSpace = tile.gameObject.GetComponent<PropertyScript>().space;
+        PropertyScript script = tile.gameObject.GetComponent<PropertyScript>() as PropertyScript;
+        currentSpace = script.space;
         if (currentSpace == targetSpace) //Landed on a Property
         {
-            MoveDone();
+            if (script.owned)
+            {
+                if (!script.mortgaged && script.ownerNo != playerNo)
+                {
+                    gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.SetActive(true);
+                    gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.GetComponent<PayRentScript>().Setup(script.ownerNo, script.rent[script.houses]);
+                }
+            } else
+            {
+                gameObject.transform.Find("Player UI").gameObject.transform.Find("Property Available").gameObject.SetActive(true);
+                gameObject.transform.Find("Player UI").gameObject.transform.Find("Property Available").gameObject.transform.Find("Buy").gameObject.GetComponent<BuyScript>().Setup(tile);
+            }
         }
     }
 
@@ -196,13 +217,7 @@ public class PlayerScript : MonoBehaviour
         money += amount;
     }
 
-    public bool Pay(int amount)
-    {
-        money -= amount;
-        return true;
-    }
-
-    public void Expense(int amount)
+    public void Pay(int amount)
     {
         money -= amount;
     }

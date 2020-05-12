@@ -8,6 +8,7 @@ public class UtilityScript : MonoBehaviour
     public string spaceName;
     public Color color;
     public bool owned;
+    public bool mortgaged = false;
     public int ownerNo;
     public int price;
     public int[] multiplier;

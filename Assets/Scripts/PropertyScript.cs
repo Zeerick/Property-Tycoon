@@ -6,8 +6,10 @@ public class PropertyScript : MonoBehaviour
 {
     public int space;
     public string streetName;
+    public string group;
     public Color color;
     public bool owned;
+    public bool mortgaged = false;
     public int ownerNo;
     public int price;
     public int housePrice;
@@ -89,8 +91,8 @@ public class PropertyScript : MonoBehaviour
         }
     }
 
-    public void Acquire(GameObject player)
+    public bool IsSetComplete()
     {
-        player.gameObject.GetComponent<PlayerScript>().Pay(price);
+
     }
 }
