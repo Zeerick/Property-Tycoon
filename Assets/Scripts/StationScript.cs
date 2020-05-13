@@ -31,7 +31,7 @@ public class StationScript : MonoBehaviour
             "\n4 Stations: £" + rent[3].ToString() +
             "\n\nPrice: £" + price.ToString();
         if(owned) {
-            description = description + "\n\nOwned by:\nPlayer " + ownerNo.ToString();
+            description = description + "\n\nOwned by:\n" + gameObject.transform.parent.GetComponent<BoardControllerScript>().PlayerController.gameObject.GetComponent<PlayerControllerScript>().players[ownerNo].GetComponent<PlayerScript>().playerName;
         } else {
             description = description + "\n\nAvailable";
         }

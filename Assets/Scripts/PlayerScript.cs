@@ -266,4 +266,9 @@ public class PlayerScript : MonoBehaviour
     {
         gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().MoveDone();
     }
+
+    public void DeclareBankruptcy()
+    {
+        gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().DeclareBankruptcy(playerNo);
+    }
 }

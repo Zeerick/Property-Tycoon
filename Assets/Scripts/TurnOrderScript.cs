@@ -15,9 +15,15 @@ public class TurnOrderScript : MonoBehaviour
 
     void Update()
     {
-        gameObject.GetComponent<UnityEngine.UI.Text>().text = player.GetComponent<PlayerScript>().playerName + " £" + player.GetComponent<PlayerScript>().money.ToString();
-        gameObject.GetComponent<UnityEngine.UI.Text>().color = player.GetComponent<PlayerScript>().color;
-        gameObject.transform.localPosition = new Vector3(0,80 - (((player.GetComponent<PlayerScript>().playerNo + controller.GetComponent<PlayerControllerScript>().players.Length - controller.GetComponent<PlayerControllerScript>().currentPlayer) % controller.GetComponent<PlayerControllerScript>().players.Length) * 30), 0);
+        if (player.gameObject.activeSelf)
+        {
+            gameObject.GetComponent<UnityEngine.UI.Text>().text = player.GetComponent<PlayerScript>().playerName + " £" + player.GetComponent<PlayerScript>().money.ToString();
+            gameObject.GetComponent<UnityEngine.UI.Text>().color = player.GetComponent<PlayerScript>().color;
+            gameObject.transform.localPosition = new Vector3(0,80 - (controller.gameObject.GetComponent<PlayerControllerScript>().TurnOrderPosition(player.gameObject.GetComponent<PlayerScript>().playerNo) * 30), 0);
+        } else
+        {
+            Object.Destroy(gameObject);
+        }
     }
 
     public void ChangeNameSubmit()

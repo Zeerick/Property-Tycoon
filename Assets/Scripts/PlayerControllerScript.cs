@@ -9,6 +9,7 @@ public class PlayerControllerScript : MonoBehaviour
     public GameObject turnOrderPrefab;
     public GameObject boardController;
     public GameObject[] players;
+    public int totalPlayers;
     public Color[] colors = new Color[6];
     public int currentPlayer = 0;
     public int dice1;
@@ -24,11 +25,12 @@ public class PlayerControllerScript : MonoBehaviour
         gameObject.transform.Find("Game UI").gameObject.SetActive(false);
         gameObject.transform.Find("Game UI").gameObject.transform.Find("End Turn Button").gameObject.SetActive(false);
         doubles = 0;
-        doubleRolled= false;
+        doubleRolled = false;
     }
 
     public void Setup(int numOfPlayers)
     {
+        totalPlayers = numOfPlayers;
         players = new GameObject[numOfPlayers];
         for (int i = 0; i < numOfPlayers; i++)
         {
@@ -74,10 +76,59 @@ public class PlayerControllerScript : MonoBehaviour
     public void EndTurn()
     {
         players[currentPlayer].gameObject.transform.Find("Player UI").gameObject.SetActive(false);
-        currentPlayer = (currentPlayer + 1) % players.Length;
+        do {
+            currentPlayer = (currentPlayer + 1) % players.Length;
+        } while (!players[currentPlayer].gameObject.activeSelf);
         players[currentPlayer].gameObject.transform.Find("Player UI").gameObject.SetActive(true);
         doubles = 0;
         doubleRolled = false;
         reRoll.Invoke();
+    }
+
+    public void DeclareBankruptcy(int playerNo)
+    {
+        foreach (GameObject space in boardController.gameObject.GetComponent<BoardControllerScript>().board)
+        {
+            if (space.gameObject.GetComponent<PropertyScript>() != null)
+            {
+                if (space.gameObject.GetComponent<PropertyScript>().ownerNo == playerNo)
+                {
+                    space.gameObject.GetComponent<PropertyScript>().owned = false;
+                    space.gameObject.GetComponent<PropertyScript>().ownerNo = 0;
+                    space.gameObject.GetComponent<PropertyScript>().houses = 0;
+                }
+            } else if (space.gameObject.GetComponent<StationScript>() != null)
+            {
+                if (space.gameObject.GetComponent<StationScript>().ownerNo == playerNo)
+                {
+                    space.gameObject.GetComponent<StationScript>().owned = false;
+                    space.gameObject.GetComponent<StationScript>().ownerNo = 0;
+                }
+            } else if (space.gameObject.GetComponent<UtilityScript>() != null)
+            {
+                if (space.gameObject.GetComponent<UtilityScript>().ownerNo == playerNo)
+                {
+                    space.gameObject.GetComponent<UtilityScript>().owned = false;
+                    space.gameObject.GetComponent<UtilityScript>().ownerNo = 0;
+                }
+            }
+        }
+        players[playerNo].gameObject.SetActive(false);
+        totalPlayers--;
+        endTurn.Invoke();
+    }
+
+    public int TurnOrderPosition(int playerNo)
+    {
+        int order = 0;
+        for (int i = currentPlayer; i != playerNo; i = (i + 1) % players.Length)
+        {
+            GameObject player = players[i];
+            if (player.gameObject.activeSelf)
+            {
+                order++;
+            }
+        }
+        return order;
     }
 }

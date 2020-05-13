@@ -42,5 +42,7 @@ public class CameraControllerScript : MonoBehaviour
     public void Activate()
     {
         active = true;
+        topCam.SetActive(!topCam.activeSelf);
+        sideCam.SetActive(!sideCam.activeSelf);
     }
 }
