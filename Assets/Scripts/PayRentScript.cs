@@ -32,6 +32,7 @@ public class PayRentScript : MonoBehaviour
             gameObject.transform.parent.parent.gameObject.GetComponent<PlayerScript>().Pay(amount);
             gameObject.transform.parent.parent.parent.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].GetComponent<PlayerScript>().Income(amount);
             gameObject.transform.parent.parent.gameObject.GetComponent<PlayerScript>().MoveDone();
+            gameObject.SetActive(false);
         }
     }
 }

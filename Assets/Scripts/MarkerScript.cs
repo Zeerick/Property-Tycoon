@@ -37,8 +37,23 @@ public class MarkerScript : MonoBehaviour
                     transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Sell House for £" + ((int)(board[space].gameObject.GetComponent<PropertyScript>().housePrice / 2)).ToString();
                     if (board[space].gameObject.GetComponent<PropertyScript>().IsSetComplete())
                     {
-                        transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(0,0,0);
-                        transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(0,0,0);
+                        if (board[space].gameObject.GetComponent<PropertyScript>().houses < 5 &&
+                        board[space].gameObject.GetComponent<PropertyScript>().houses <= board[space].gameObject.GetComponent<PropertyScript>().LeastHousesInSet() &&
+                        board[space].gameObject.GetComponent<PropertyScript>().housePrice <= playerController.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().money)
+                        {
+                            transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(0,0,0);
+                        } else
+                        {
+                            transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+                        }
+                        if (board[space].gameObject.GetComponent<PropertyScript>().houses > 0 &&
+                        board[space].gameObject.GetComponent<PropertyScript>().houses >= board[space].gameObject.GetComponent<PropertyScript>().MostHousesInSet())
+                        {
+                            transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(0,0,0);
+                        } else
+                        {
+                            transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+                        }
                     } else
                     {
                         transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
@@ -188,6 +203,33 @@ public class MarkerScript : MonoBehaviour
                     playerController.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().Pay((int)((board[space].gameObject.GetComponent<UtilityScript>().price / 2) * 1.1));
                 }
             }
+        }
+    }
+
+    public void BuyHouse()
+    {
+        if (board[space].gameObject.GetComponent<PropertyScript>() != null &&
+            !board[space].gameObject.GetComponent<PropertyScript>().mortgaged &&
+            board[space].gameObject.GetComponent<PropertyScript>().IsSetComplete() &&
+            board[space].gameObject.GetComponent<PropertyScript>().houses < 5 &&
+            board[space].gameObject.GetComponent<PropertyScript>().houses <= board[space].gameObject.GetComponent<PropertyScript>().LeastHousesInSet() &&
+            board[space].gameObject.GetComponent<PropertyScript>().housePrice <= playerController.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().money)
+        {
+            playerController.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().Pay(board[space].gameObject.GetComponent<PropertyScript>().housePrice);
+            board[space].gameObject.GetComponent<PropertyScript>().houses += 1;
+        }
+    }
+
+    public void SellHouse()
+    {
+        if (board[space].gameObject.GetComponent<PropertyScript>() != null &&
+            !board[space].gameObject.GetComponent<PropertyScript>().mortgaged &&
+            board[space].gameObject.GetComponent<PropertyScript>().IsSetComplete() &&
+            board[space].gameObject.GetComponent<PropertyScript>().houses > 0 &&
+            board[space].gameObject.GetComponent<PropertyScript>().houses >= board[space].gameObject.GetComponent<PropertyScript>().MostHousesInSet())
+        {
+            playerController.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().Income(board[space].gameObject.GetComponent<PropertyScript>().housePrice / 2);
+            board[space].gameObject.GetComponent<PropertyScript>().houses -= 1;
         }
     }
 }

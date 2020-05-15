@@ -110,4 +110,42 @@ public class PropertyScript : MonoBehaviour
         }
         return complete;
     }
+
+    public int LeastHousesInSet()
+    {
+        int least = 5;
+        foreach (GameObject space in gameObject.transform.parent.gameObject.GetComponent<BoardControllerScript>().board)
+        {
+            if (space.gameObject.GetComponent<PropertyScript>() != null)
+            {
+                if (space.gameObject.GetComponent<PropertyScript>().group == group)
+                {
+                    if (space.gameObject.GetComponent<PropertyScript>().houses < least)
+                    {
+                        least = space.gameObject.GetComponent<PropertyScript>().houses;
+                    }
+                }
+            }
+        }
+        return least;
+    }
+
+    public int MostHousesInSet()
+    {
+        int most = 0;
+        foreach (GameObject space in gameObject.transform.parent.gameObject.GetComponent<BoardControllerScript>().board)
+        {
+            if (space.gameObject.GetComponent<PropertyScript>() != null)
+            {
+                if (space.gameObject.GetComponent<PropertyScript>().group == group)
+                {
+                    if (space.gameObject.GetComponent<PropertyScript>().houses > most)
+                    {
+                        most = space.gameObject.GetComponent<PropertyScript>().houses;
+                    }
+                }
+            }
+        }
+        return most;
+    }
 }

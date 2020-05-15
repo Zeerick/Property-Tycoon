@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     public bool getOutOfJailFree = false;
 
     public UnityEvent returnFromManageProperties = new UnityEvent();
+    public UnityEvent returnFromTrade = new UnityEvent();
 
     // Start is called before the first frame update
     void Start()
@@ -266,6 +267,7 @@ public class PlayerScript : MonoBehaviour
 
     public void MoveDirect(int spaceNo)
     {
+        targetSpace = spaceNo;
         transform.position = BoardControllerScript.SpacePosition(spaceNo, gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().players.Length, playerNo, jailStatus);
     }
 
@@ -304,6 +306,11 @@ public class PlayerScript : MonoBehaviour
     public void Auction()
     {
         gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().Auction();
+    }
+
+    public void Trade()
+    {
+        gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().trade.Invoke();
     }
 
     public void ManageProperties()

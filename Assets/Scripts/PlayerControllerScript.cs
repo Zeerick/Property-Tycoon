@@ -21,12 +21,14 @@ public class PlayerControllerScript : MonoBehaviour
     public UnityEvent reRoll = new UnityEvent();
     public UnityEvent endTurn = new UnityEvent();
     public UnityEvent manageProperties = new UnityEvent();
+    public UnityEvent trade = new UnityEvent();
 
     void Start()
     {
         gameObject.transform.Find("Game UI").gameObject.SetActive(false);
         gameObject.transform.Find("Game UI").gameObject.transform.Find("End Turn Button").gameObject.SetActive(false);
         gameObject.transform.Find("Game UI").gameObject.transform.Find("Auction").gameObject.SetActive(false);
+        gameObject.transform.Find("Winner UI").gameObject.SetActive(false);
         doubles = 0;
         doubleRolled = false;
     }
@@ -149,6 +151,23 @@ public class PlayerControllerScript : MonoBehaviour
         players[playerNo].gameObject.SetActive(false);
         totalPlayers--;
         endTurn.Invoke();
+        if (totalPlayers <= 1)
+        {
+            WinGame();
+        }
+    }
+
+    public void WinGame()
+    {
+        gameObject.transform.Find("Game UI").gameObject.SetActive(false);
+        gameObject.transform.Find("Winner UI").gameObject.SetActive(true);
+        gameObject.transform.Find("Winner UI").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = players[currentPlayer].gameObject.GetComponent<PlayerScript>().playerName + " has won!!!";
+        players[currentPlayer].gameObject.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     public void TakeCard(string deckName)
@@ -178,5 +197,10 @@ public class PlayerControllerScript : MonoBehaviour
     public void ReturnFromManageProperties()
     {
         players[currentPlayer].gameObject.GetComponent<PlayerScript>().returnFromManageProperties.Invoke();
+    }
+
+    public void ReturnFromTrade()
+    {
+        players[currentPlayer].gameObject.GetComponent<PlayerScript>().returnFromTrade.Invoke();
     }
 }

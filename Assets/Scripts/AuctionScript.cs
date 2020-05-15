@@ -73,6 +73,10 @@ public class AuctionScript : MonoBehaviour
         {
             auction[currentAuctioneer].gameObject.GetComponent<AuctionOrderScript>().player.gameObject.GetComponent<PlayerScript>().Pay(auction[currentAuctioneer].gameObject.GetComponent<AuctionOrderScript>().currentBid);
             auction[currentAuctioneer].gameObject.GetComponent<AuctionOrderScript>().player.gameObject.GetComponent<PlayerScript>().AcquireProperty(property);
+            foreach (GameObject a in auction)
+            {
+                Object.Destroy(a);
+            }
             auctionEnded.Invoke();
         }
     }
