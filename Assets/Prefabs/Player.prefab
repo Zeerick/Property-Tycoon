@@ -328,7 +328,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1235246020763524187}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1179558651427531713}
+        m_MethodName: ManageProperties
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2154683739111591761
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,6 +909,32 @@ MonoBehaviour:
   currentSpace: 0
   money: 0
   turnsLeftInJail: 0
+  getOutOfJailFree: 0
+  returnFromManageProperties:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5473344824374732907}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1827025860296168051}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &3833696528612225031
 GameObject:
   m_ObjectHideFlags: 0

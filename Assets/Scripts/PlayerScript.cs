@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerScript : MonoBehaviour
     public int turnsLeftInJail;
     int boardLaps;
     public bool getOutOfJailFree = false;
+
+    public UnityEvent returnFromManageProperties = new UnityEvent();
 
     // Start is called before the first frame update
     void Start()
@@ -301,6 +304,15 @@ public class PlayerScript : MonoBehaviour
     public void Auction()
     {
         gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().Auction();
+    }
+
+    public void ManageProperties()
+    {
+        if (gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().boardController.gameObject.GetComponent<BoardControllerScript>().NumberOfOwnedProperties(playerNo) > 0)
+        {
+            gameObject.transform.Find("Player UI").Find("Manage Properties").gameObject.SetActive(false);
+            gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().manageProperties.Invoke();
+        }
     }
 
     public void DeclareBankruptcy()

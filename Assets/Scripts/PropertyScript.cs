@@ -36,10 +36,14 @@ public class PropertyScript : MonoBehaviour
             "\nWith HOTEL: £" + rent[5].ToString() +
             "\n\nPrice: £" + price.ToString() +
             "\n\nHouse & Hotels: £" + housePrice.ToString();
-        if(owned) {
+        if (owned) {
             description = description + "\n\nOwned by:\n" + gameObject.transform.parent.GetComponent<BoardControllerScript>().PlayerController.gameObject.GetComponent<PlayerControllerScript>().players[ownerNo].GetComponent<PlayerScript>().playerName;
         } else {
             description = description + "\n\nAvailable";
+        }
+        if (mortgaged)
+        {
+            description = description + "\n\nMORTGAGED";
         }
 
         gameObject.transform.Find("Information").gameObject.GetComponent<TextMesh>().text = description;

@@ -203,6 +203,25 @@ public class BoardControllerScript : MonoBehaviour
         board[GetTypeLocation("Free Parking")].gameObject.GetComponent<FreeParkingScript>().pot += amount;
     }
 
+    public int NumberOfOwnedProperties(int playerNo)
+    {
+        int total = 0;
+        foreach (GameObject space in board)
+        {
+            if (space.gameObject.GetComponent<PropertyScript>() != null && space.gameObject.GetComponent<PropertyScript>().owned && space.gameObject.GetComponent<PropertyScript>().ownerNo == playerNo)
+            {
+                total++;
+            } else if (space.gameObject.GetComponent<StationScript>() != null && space.gameObject.GetComponent<StationScript>().owned && space.gameObject.GetComponent<StationScript>().ownerNo == playerNo)
+            {
+                total++;
+            } else if (space.gameObject.GetComponent<UtilityScript>() != null && space.gameObject.GetComponent<UtilityScript>().owned && space.gameObject.GetComponent<UtilityScript>().ownerNo == playerNo)
+            {
+                total++;
+            }
+        }
+        return total;
+    }
+
     public int NumberOfOwnedHouses(int playerNo)
     {
         int total = 0;

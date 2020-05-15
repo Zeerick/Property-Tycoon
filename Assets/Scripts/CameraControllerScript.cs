@@ -33,7 +33,7 @@ public class CameraControllerScript : MonoBehaviour
                 topCam.SetActive(!topCam.activeSelf);
                 sideCam.SetActive(!sideCam.activeSelf);
             }
-            boardEdge = (int)Mathf.Floor(playerController.GetComponent<PlayerControllerScript>().players[playerController.GetComponent<PlayerControllerScript>().currentPlayer].gameObject.GetComponent<PlayerScript>().currentSpace / 10);
+            boardEdge = (int)Mathf.Floor(playerController.transform.Find("Marker").gameObject.GetComponent<MarkerScript>().space / 10);
             sideCam.transform.position = Vector3.MoveTowards(sideCam.transform.position, Quaternion.Euler(0, 90 * boardEdge, 0) * sidePos, Mathf.Max(Vector3.Distance(sideCam.transform.position, Quaternion.Euler(0, 90 * boardEdge, 0) * sidePos) / 15, 0.1f));
             sideCam.transform.rotation = Quaternion.RotateTowards(sideCam.transform.rotation, Quaternion.Euler(sideRot.eulerAngles.x, 90 * boardEdge, sideRot.eulerAngles.z), Mathf.Max(Mathf.Abs(((90 * boardEdge) - sideCam.transform.rotation.eulerAngles.y) / 15), 0.5f));
         }

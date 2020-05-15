@@ -35,6 +35,10 @@ public class StationScript : MonoBehaviour
         } else {
             description = description + "\n\nAvailable";
         }
+        if (mortgaged)
+        {
+            description = description + "\n\nMORTGAGED";
+        }
 
         gameObject.transform.Find("Information").gameObject.GetComponent<TextMesh>().text = description;
         if (owned)

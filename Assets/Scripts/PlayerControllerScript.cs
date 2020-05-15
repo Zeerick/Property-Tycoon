@@ -20,6 +20,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     public UnityEvent reRoll = new UnityEvent();
     public UnityEvent endTurn = new UnityEvent();
+    public UnityEvent manageProperties = new UnityEvent();
 
     void Start()
     {
@@ -172,5 +173,10 @@ public class PlayerControllerScript : MonoBehaviour
     public GameObject GetSpaceOfType(string type)
     {
         return boardController.gameObject.GetComponent<BoardControllerScript>().board[boardController.gameObject.GetComponent<BoardControllerScript>().GetTypeLocation(type)];
+    }
+
+    public void ReturnFromManageProperties()
+    {
+        players[currentPlayer].gameObject.GetComponent<PlayerScript>().returnFromManageProperties.Invoke();
     }
 }
