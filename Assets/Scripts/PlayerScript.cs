@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour
     public int money;
     public int turnsLeftInJail;
     int boardLaps;
+    public bool getOutOfJailFree = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,8 @@ public class PlayerScript : MonoBehaviour
         }
         gameObject.transform.Find("Player UI").gameObject.transform.Find("Property Available").gameObject.SetActive(false);
         gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Rent").gameObject.SetActive(false);
+        gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay").gameObject.SetActive(false);
+        gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Jail").gameObject.SetActive(false);
     }
 
     void FixedUpdate()
@@ -93,13 +96,13 @@ public class PlayerScript : MonoBehaviour
             switch (tile.gameObject.GetComponent<ActionTileScript>().type)
             {
                 case "Tax":
-                    gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().boardController.gameObject.GetComponent<BoardControllerScript>().AddToFPPot(tile.gameObject.GetComponent<ActionTileScript>().amount);
-                    Pay(tile.gameObject.GetComponent<ActionTileScript>().amount);
+                    gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay").gameObject.SetActive(true);
+                    gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay").gameObject.GetComponent<PayScript>().Setup(true, tile.gameObject.GetComponent<ActionTileScript>().amount);
                     break;
                 case "Take Card":
+                    gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().TakeCard(tile.gameObject.GetComponent<ActionTileScript>().deck);
                     break;
             }
-            MoveDone();
         }
     }
 
@@ -130,7 +133,7 @@ public class PlayerScript : MonoBehaviour
     void GoToJail(GameObject tile)
     {
         currentSpace = tile.gameObject.GetComponent<GoToJailScript>().space;
-        if (currentSpace == targetSpace) //Landed on Go To Jail
+        if (currentSpace == targetSpace)
         {
             InJail();
             MoveDone();
@@ -141,6 +144,12 @@ public class PlayerScript : MonoBehaviour
     {
         turnsLeftInJail = 3;
         targetSpace = gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().boardController.gameObject.GetComponent<BoardControllerScript>().GetTypeLocation("Jail");
+    }
+
+    public void JailFine()
+    {
+        gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Jail").gameObject.SetActive(true);
+        gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Jail").gameObject.GetComponent<PayScript>().Setup(true, true, 50);
     }
 
     void Jail(GameObject tile)
@@ -252,6 +261,11 @@ public class PlayerScript : MonoBehaviour
         targetSpace = (currentSpace + spaces) % 40;
     }
 
+    public void MoveDirect(int spaceNo)
+    {
+        transform.position = BoardControllerScript.SpacePosition(spaceNo, gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().players.Length, playerNo, jailStatus);
+    }
+
     public void Income(int amount)
     {
         money += amount;
@@ -262,9 +276,31 @@ public class PlayerScript : MonoBehaviour
         money -= amount;
     }
 
+    public void AcquireProperty(GameObject property)
+    {
+        if(property.gameObject.GetComponent<PropertyScript>() != null)
+        {
+            property.gameObject.GetComponent<PropertyScript>().owned = true;
+            property.gameObject.GetComponent<PropertyScript>().ownerNo = playerNo;
+        } else if(property.gameObject.GetComponent<StationScript>() != null)
+        {
+            property.gameObject.GetComponent<StationScript>().owned = true;
+            property.gameObject.GetComponent<StationScript>().ownerNo = playerNo;
+        } else if(property.gameObject.GetComponent<UtilityScript>() != null)
+        {
+            property.gameObject.GetComponent<UtilityScript>().owned = true;
+            property.gameObject.GetComponent<UtilityScript>().ownerNo = playerNo;
+        }
+    }
+
     public void MoveDone()
     {
         gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().MoveDone();
+    }
+
+    public void Auction()
+    {
+        gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().Auction();
     }
 
     public void DeclareBankruptcy()

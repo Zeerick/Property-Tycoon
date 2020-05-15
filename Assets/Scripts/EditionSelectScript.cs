@@ -6,31 +6,43 @@ using System.IO;
 
 public class EditionSelectScript : MonoBehaviour
 {
-    Object[] csvFiles;
+    Object[] csvBoardFiles;
+    Object[] csvCardFiles;
     string[] editionNames;
-    string[] csvStrings;
+    string[] csvBoardStrings;
+    string[] csvCardStrings;
     int currentEditionNo;
 
     [System.Serializable]
     public class SubmitEvent : UnityEvent<string> {}
 
-    public SubmitEvent StartGame;
+    public SubmitEvent StartGameBoard;
+    public SubmitEvent StartGameCards;
 
     // Start is called before the first frame update
     void Start()
     {
-        csvFiles = Resources.LoadAll("Data/Board", typeof(TextAsset));
-        editionNames = new string[csvFiles.Length];
-        csvStrings = new string[csvFiles.Length];
+        csvBoardFiles = Resources.LoadAll("Data/Board", typeof(TextAsset));
+        csvCardFiles = Resources.LoadAll("Data/Cards", typeof(TextAsset));
+        editionNames = new string[csvBoardFiles.Length];
+        csvBoardStrings = new string[csvBoardFiles.Length];
         currentEditionNo = 0;
-        foreach (TextAsset csv in csvFiles) {
-            StreamReader reader = new StreamReader("Assets/Resources/Data/Board/" + csv.name + ".csv");
+        foreach (TextAsset csvBoard in csvBoardFiles) {
+            StreamReader reader = new StreamReader("Assets/Resources/Data/Board/" + csvBoard.name + ".csv");
             string txt = reader.ReadToEnd();
             reader.Close();
-            csvStrings[currentEditionNo] = txt;
+            csvBoardStrings[currentEditionNo] = txt;
             string[] lines = txt.Split('\n');
             string[] cells = lines[0].Split(',');
             editionNames[currentEditionNo] = cells[0];
+            currentEditionNo += 1;
+        }
+        csvCardStrings = new string[csvCardFiles.Length];
+        currentEditionNo = 0;
+        foreach (TextAsset csvCards in csvCardFiles) {
+            StreamReader reader = new StreamReader("Assets/Resources/Data/Cards/" + csvCards.name + ".csv");
+            csvCardStrings[currentEditionNo] = reader.ReadToEnd();
+            reader.Close();
             currentEditionNo += 1;
         }
         currentEditionNo = 0;
@@ -44,7 +56,7 @@ public class EditionSelectScript : MonoBehaviour
 
     public void NextEdition()
     {
-        if (currentEditionNo < csvFiles.Length - 1) {
+        if (currentEditionNo < csvBoardFiles.Length - 1) {
             currentEditionNo += 1;
         }
     }
@@ -58,6 +70,7 @@ public class EditionSelectScript : MonoBehaviour
 
     public void Submit()
     {
-        StartGame.Invoke(csvStrings[currentEditionNo]);
+        StartGameBoard.Invoke(csvBoardStrings[currentEditionNo]);
+        StartGameCards.Invoke(csvCardStrings[currentEditionNo]);
     }
 }

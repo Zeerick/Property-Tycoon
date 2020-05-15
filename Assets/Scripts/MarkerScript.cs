@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class MarkerScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public GameObject playerController;
 
-    }
+    public int space;
+    public bool active;
 
-    // Update is called once per frame
     void Update()
     {
-        //gameObject.transform.position = gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().players[gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().currentPlayer].gameObject.transform.position;
+        if (!active)
+        {
+            space = playerController.gameObject.GetComponent<PlayerControllerScript>().players[playerController.gameObject.GetComponent<PlayerControllerScript>().currentPlayer].currentSpace;
+        }
+        gameObject.transform.position = BoardControllerScript.SpacePosition(space, gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().players.Length, playerNo, jailStatus);
+    }
+
+    void NextOwnedSpace()
+    {
+        GameObject[] board = gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().boardController.gameObject.GetComponent<BoardControllerScript>().board;
+    }
+
+    void PrevOwnedSpace()
+    {
+
     }
 }

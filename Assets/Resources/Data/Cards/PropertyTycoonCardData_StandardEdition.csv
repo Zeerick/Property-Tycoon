@@ -1,0 +1,38 @@
+Standard Edition,,,,,,,,,,,,,,,,,,,,,,
+Pot Luck,,,,,,,,,,,,,,,,,,,,,,
+Description,,,Action,,,,,,Option?,Option 1,Option 2,Income,Income from other players,Pay,Pay To FP,Pay/House,Pay/Hotel,Move?,Pass Go?,Move By,Move To,Get Out Of Jail
+You inherit £100,,,Bank pays player £100,,,,,,No,,,100,0,0,0,0,0,No,,0,0,No
+You have won 2nd prize in a beauty contest. Collect £20,,,Bank pays player £20,,,,,,No,,,20,0,0,0,0,0,No,,0,0,No
+Go back to Crapper Street,,,Player token moves backwards to Crapper Street,,,,,,No,,,0,0,0,0,0,0,Yes,No,0,2,No
+Student loan refund. Collect £20,,,Bank pays player £20,,,,,,No,,,20,0,0,0,0,0,No,,0,0,No
+Bank error in your favour. Collect £200,,,Bank pays player £200,,,,,,No,,,200,0,0,0,0,0,No,,0,0,No
+Pay bill for text books of £100,,,Player pays £100 to the bank,,,,,,No,,,0,0,100,0,0,0,No,,0,0,No
+Mega late night taxi bill pay £50,,,Player pays £50 to the bank,,,,,,No,,,0,0,50,0,0,0,No,,0,0,No
+Advance to go,,,Player moves forwards to GO,,,,,,No,,,0,0,0,0,0,0,Yes,Yes,0,1,No
+From sale of Bitcoin you get £50,,,Bank pays player £50,,,,,,No,,,50,0,0,0,0,0,No,,0,0,No
+Pay a £10 fine or take opportunity knocks,,,If fine paid player puts £10 on free parking,,,,,,Yes,Action,Card,0,0,0,10,0,0,No,,0,0,No
+Pay insurance fee of £50,,,Player puts £50 on free parking,,,,,,No,,,0,0,0,50,0,0,No,,0,0,No
+Savings bond matures. Collect £100,,,Bank pays £100 to the player,,,,,,No,,,100,0,0,0,0,0,No,,0,0,No
+Go to jail. Do not pass GO. Do not collect £200,,,As the card says,,,,,,No,,,0,0,0,0,0,0,Yes,No,0,11,No
+Received interest on shares of £25,,,Bank pays player £25,,,,,,No,,,25,0,0,0,0,0,No,,0,0,No
+It's your birthday. Collect £10 from each player,,,Player receives £10 from each player,,,,,,No,,,0,10,0,0,0,0,No,,0,0,No
+Get out of jail free,,,Retained by the player until needed. No resale or trade value,,,,,,No,,,0,0,0,0,0,0,No,,0,0,Yes
+,,,,,,,,,,,,,,,,,,,,,,
+Opportunity Knocks,,,,,,,,,,,,,,,,,,,,,,
+Description,,,Action,,,,,,Option?,Option 1,Option 2,Income,Income from other players,Pay,Pay To FP,Pay/House,Pay/Hotel,Move?,Pass Go?,Move By,Move To,Get Out Of Jail
+Bank pays you divided of £50,,,Bank pays player £50,,,,,,No,,,50,0,0,0,0,0,No,,0,0,No
+You have won a lip sync battle. Collect £100,,,Bank pays player £100,,,,,,No,,,100,0,0,0,0,0,No,,0,0,No
+Advance to Turing Heights,,,Player token moves forwards to Turing Heights,,,,,,No,,,0,0,0,0,0,0,Yes,Yes,0,40,No
+Advance to Han Xin Gardens. If you pass GO collect £200,,,Player moves token,,,,,,No,,,0,0,0,0,0,0,Yes,Yes,0,25,No
+Fined £15 for speeding,,,Player puts £15 on free parking,,,,,,No,,,0,0,0,15,0,0,No,,0,0,No
+Pay university fees of £150,,,Player pays £150 to the bank,,,,,,No,,,0,0,150,0,0,0,No,,0,0,No
+Take a trip to Hove station. If you pass GO collect £200,,,Player moves token,,,,,,No,,,0,0,0,0,0,0,Yes,Yes,0,16,No
+Loan matures. Collect £150,,,Bank pays £150 to the player,,,,,,No,,,150,0,0,0,0,0,No,,0,0,No
+You are assessed for repairs: £40/house £115/hotel,,,Player pays money to the bank,,,,,,No,,,0,0,0,0,40,115,No,,0,0,No
+Advance to go,,,Player moves token,,,,,,No,,,0,0,0,0,0,0,Yes,Yes,0,1,No
+You are assessed for repairs: £25/house £100/hotel,,,Player pays money to the bank,,,,,,No,,,0,0,0,0,25,100,No,,0,0,No
+Go back 3 spaces,,,Player moves token,,,,,,No,,,0,0,0,0,0,0,Yes,No,-3,0,No
+Advance to Skywalker Drive. If you pass GO collect £200,,,Player moves token,,,,,,No,,,0,0,0,0,0,0,Yes,Yes,0,12,No
+Go to jail. Do not pass GO. Do not collect £200,,,As the card says,,,,,,No,,,0,0,0,0,0,0,Yes,No,0,11,No
+Drunk in charge of a skateboard. Fine £20,,,Player puts £20 on free parking,,,,,,No,,,0,0,0,20,0,0,No,,0,0,No
+Get out of jail free,,,Retained by the player until needed. No resale or trade value,,,,,,No,,,0,0,0,0,0,0,No,,0,0,Yes

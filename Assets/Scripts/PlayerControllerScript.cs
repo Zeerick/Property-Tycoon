@@ -8,6 +8,7 @@ public class PlayerControllerScript : MonoBehaviour
     public GameObject prefab;
     public GameObject turnOrderPrefab;
     public GameObject boardController;
+    public GameObject cardController;
     public GameObject[] players;
     public int totalPlayers;
     public Color[] colors = new Color[6];
@@ -24,6 +25,7 @@ public class PlayerControllerScript : MonoBehaviour
     {
         gameObject.transform.Find("Game UI").gameObject.SetActive(false);
         gameObject.transform.Find("Game UI").gameObject.transform.Find("End Turn Button").gameObject.SetActive(false);
+        gameObject.transform.Find("Game UI").gameObject.transform.Find("Auction").gameObject.SetActive(false);
         doubles = 0;
         doubleRolled = false;
     }
@@ -82,7 +84,37 @@ public class PlayerControllerScript : MonoBehaviour
         players[currentPlayer].gameObject.transform.Find("Player UI").gameObject.SetActive(true);
         doubles = 0;
         doubleRolled = false;
-        reRoll.Invoke();
+        if (players[currentPlayer].gameObject.GetComponent<PlayerScript>().turnsLeftInJail > 1)
+        {
+            players[currentPlayer].gameObject.transform.Find("Player UI").Find("Pay Jail").gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(360, 130);
+            players[currentPlayer].gameObject.GetComponent<PlayerScript>().JailFine();
+            reRoll.Invoke();
+        } else if (players[currentPlayer].gameObject.GetComponent<PlayerScript>().turnsLeftInJail == 1)
+        {
+            players[currentPlayer].gameObject.transform.Find("Player UI").Find("Pay Jail").gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(360, 80);
+            players[currentPlayer].gameObject.GetComponent<PlayerScript>().JailFine();
+        } else
+        {
+            reRoll.Invoke();
+        }
+    }
+
+    public void ReRoll()
+    {
+        players[currentPlayer].gameObject.GetComponent<PlayerScript>().gameObject.transform.Find("Player UI").gameObject.transform.Find("Pay Jail").gameObject.SetActive(false);
+    }
+
+    public void Auction()
+    {
+        gameObject.transform.Find("Game UI").Find("Auction").gameObject.SetActive(true);
+        gameObject.transform.Find("Game UI").Find("Auction").gameObject.GetComponent<AuctionScript>().Setup(currentPlayer);
+    }
+
+    public void AuctionDone()
+    {
+        players[currentPlayer].gameObject.transform.Find("Player UI").gameObject.SetActive(true);
+        players[currentPlayer].gameObject.transform.Find("Player UI").Find("Property Available").gameObject.SetActive(false);
+        players[currentPlayer].gameObject.GetComponent<PlayerScript>().MoveDone();
     }
 
     public void DeclareBankruptcy(int playerNo)
@@ -118,6 +150,11 @@ public class PlayerControllerScript : MonoBehaviour
         endTurn.Invoke();
     }
 
+    public void TakeCard(string deckName)
+    {
+        cardController.gameObject.GetComponent<CardControllerScript>().TakeCard(deckName, players[currentPlayer]);
+    }
+
     public int TurnOrderPosition(int playerNo)
     {
         int order = 0;
@@ -130,5 +167,10 @@ public class PlayerControllerScript : MonoBehaviour
             }
         }
         return order;
+    }
+
+    public GameObject GetSpaceOfType(string type)
+    {
+        return boardController.gameObject.GetComponent<BoardControllerScript>().board[boardController.gameObject.GetComponent<BoardControllerScript>().GetTypeLocation(type)];
     }
 }
