@@ -10,6 +10,7 @@ public class MarkerScript : MonoBehaviour
     public int space;
     public int playerNo;
     public bool active = false;
+    public bool trade = false;
     public bool gameActive = false;
 
     void Start()
@@ -30,84 +31,108 @@ public class MarkerScript : MonoBehaviour
             gameObject.transform.rotation = BoardControllerScript.SpaceRotation(space);
             if (board[space].gameObject.GetComponent<PropertyScript>() != null)
             {
-                if (!board[space].gameObject.GetComponent<PropertyScript>().mortgaged)
+                if (!trade)
                 {
-                    transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Mortgage for £" + ((int)(board[space].gameObject.GetComponent<PropertyScript>().price / 2)).ToString();
-                    transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Buy House for £" + board[space].gameObject.GetComponent<PropertyScript>().housePrice.ToString();
-                    transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Sell House for £" + ((int)(board[space].gameObject.GetComponent<PropertyScript>().housePrice / 2)).ToString();
-                    if (board[space].gameObject.GetComponent<PropertyScript>().IsSetComplete())
-                    {
-                        if (board[space].gameObject.GetComponent<PropertyScript>().houses < 5 &&
-                        board[space].gameObject.GetComponent<PropertyScript>().houses <= board[space].gameObject.GetComponent<PropertyScript>().LeastHousesInSet() &&
-                        board[space].gameObject.GetComponent<PropertyScript>().housePrice <= playerController.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().money)
-                        {
-                            transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(0,0,0);
-                        } else
-                        {
-                            transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
-                        }
-                        if (board[space].gameObject.GetComponent<PropertyScript>().houses > 0 &&
-                        board[space].gameObject.GetComponent<PropertyScript>().houses >= board[space].gameObject.GetComponent<PropertyScript>().MostHousesInSet())
-                        {
-                            transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(0,0,0);
-                        } else
-                        {
-                            transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
-                        }
-                    } else
-                    {
-                        transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
-                        transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
-                    }
-                } else
-                {
-                    transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Unmortgage for £" + ((int)((board[space].gameObject.GetComponent<PropertyScript>().price / 2) * 1.1)).ToString();
-                    if ((int)((board[space].gameObject.GetComponent<PropertyScript>().price / 2) * 1.1) >= gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().money || board[space].gameObject.GetComponent<PropertyScript>().houses > 0)
-                    {
-                        transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
-                    }
-                    transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Buy House";
-                    transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
-                    transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Sell House";
-                    transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+                    PropertyManage();
                 }
             } else if (board[space].gameObject.GetComponent<StationScript>() != null)
             {
-                if (!board[space].gameObject.GetComponent<StationScript>().mortgaged)
+                if (!trade)
                 {
-                    transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Mortgage for £" + ((int)(board[space].gameObject.GetComponent<StationScript>().price / 2)).ToString();
-                } else
-                {
-                    transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Unmortgage for £" + ((int)((board[space].gameObject.GetComponent<StationScript>().price / 2) * 1.1)).ToString();
-                    if ((int)((board[space].gameObject.GetComponent<StationScript>().price / 2) * 1.1) >= gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().money)
-                    {
-                        transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
-                    }
+                    StationManage();
                 }
-                transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Buy House";
-                transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
-                transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Sell House";
-                transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
             } else if (board[space].gameObject.GetComponent<UtilityScript>() != null)
             {
-                if (!board[space].gameObject.GetComponent<UtilityScript>().mortgaged)
+                if (!trade)
                 {
-                    transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Mortgage for £" + ((int)(board[space].gameObject.GetComponent<UtilityScript>().price / 2)).ToString();
-                } else
-                {
-                    transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Unmortgage for £" + ((int)((board[space].gameObject.GetComponent<UtilityScript>().price / 2) * 1.1)).ToString();
-                    if ((int)((board[space].gameObject.GetComponent<UtilityScript>().price / 2) * 1.1) >= gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().money)
-                    {
-                        transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
-                    }
+                    UtilityManage();
                 }
-                transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Buy House";
-                transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
-                transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Sell House";
-                transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
             }
         }
         transform.Find("Outline").gameObject.SetActive(active);
+    }
+
+    void PropertyManage()
+    {
+        if (!board[space].gameObject.GetComponent<PropertyScript>().mortgaged)
+        {
+            transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Mortgage for £" + ((int)(board[space].gameObject.GetComponent<PropertyScript>().price / 2)).ToString();
+            transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Buy House for £" + board[space].gameObject.GetComponent<PropertyScript>().housePrice.ToString();
+            transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Sell House for £" + ((int)(board[space].gameObject.GetComponent<PropertyScript>().housePrice / 2)).ToString();
+            if (board[space].gameObject.GetComponent<PropertyScript>().IsSetComplete())
+            {
+                if (board[space].gameObject.GetComponent<PropertyScript>().houses < 5 &&
+                board[space].gameObject.GetComponent<PropertyScript>().houses <= board[space].gameObject.GetComponent<PropertyScript>().LeastHousesInSet() &&
+                board[space].gameObject.GetComponent<PropertyScript>().housePrice <= playerController.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().money)
+                {
+                    transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(0,0,0);
+                } else
+                {
+                    transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+                }
+                if (board[space].gameObject.GetComponent<PropertyScript>().houses > 0 &&
+                board[space].gameObject.GetComponent<PropertyScript>().houses >= board[space].gameObject.GetComponent<PropertyScript>().MostHousesInSet())
+                {
+                    transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(0,0,0);
+                } else
+                {
+                    transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+                }
+            } else
+            {
+                transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+                transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+            }
+        } else
+        {
+            transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Unmortgage for £" + ((int)((board[space].gameObject.GetComponent<PropertyScript>().price / 2) * 1.1)).ToString();
+            if ((int)((board[space].gameObject.GetComponent<PropertyScript>().price / 2) * 1.1) >= gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().money || board[space].gameObject.GetComponent<PropertyScript>().houses > 0)
+            {
+                transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+            }
+            transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Buy House";
+            transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+            transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Sell House";
+            transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+        }
+    }
+
+    void StationManage()
+    {
+        if (!board[space].gameObject.GetComponent<StationScript>().mortgaged)
+        {
+            transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Mortgage for £" + ((int)(board[space].gameObject.GetComponent<StationScript>().price / 2)).ToString();
+        } else
+        {
+            transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Unmortgage for £" + ((int)((board[space].gameObject.GetComponent<StationScript>().price / 2) * 1.1)).ToString();
+            if ((int)((board[space].gameObject.GetComponent<StationScript>().price / 2) * 1.1) >= gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().money)
+            {
+                transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+            }
+        }
+        transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Buy House";
+        transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+        transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Sell House";
+        transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+    }
+
+    void UtilityManage()
+    {
+        if (!board[space].gameObject.GetComponent<UtilityScript>().mortgaged)
+        {
+            transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Mortgage for £" + ((int)(board[space].gameObject.GetComponent<UtilityScript>().price / 2)).ToString();
+        } else
+        {
+            transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Unmortgage for £" + ((int)((board[space].gameObject.GetComponent<UtilityScript>().price / 2) * 1.1)).ToString();
+            if ((int)((board[space].gameObject.GetComponent<UtilityScript>().price / 2) * 1.1) >= gameObject.transform.parent.gameObject.GetComponent<PlayerControllerScript>().players[playerNo].gameObject.GetComponent<PlayerScript>().money)
+            {
+                transform.Find("Manage Properties UI").Find("Mortgage").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+            }
+        }
+        transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Buy House";
+        transform.Find("Manage Properties UI").Find("Buy House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
+        transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Sell House";
+        transform.Find("Manage Properties UI").Find("Sell House").Find("Text").gameObject.GetComponent<UnityEngine.UI.Text>().color = new Color(1,0,0);
     }
 
     public void SetActive(bool a)

@@ -21,7 +21,6 @@ public class TradeControllerScript : MonoBehaviour
         transform.Find("Trade UI").Find("Offer 1").gameObject.SetActive(false);
         transform.Find("Trade UI").Find("Offer 2").gameObject.SetActive(false);
         transform.Find("Trade UI").Find("Make Deal").gameObject.SetActive(false);
-
     }
 
     void Update()
